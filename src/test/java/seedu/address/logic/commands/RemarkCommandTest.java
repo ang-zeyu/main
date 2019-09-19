@@ -42,7 +42,9 @@ class RemarkCommandTest {
                 Index.fromOneBased(1),
                 testRemark);
 
-        Model testModel = new ModelManager(new AddressBook(), new UserPrefs());
+        AddressBook testAddressBook = new AddressBook();
+        testAddressBook.addPerson(testPerson);
+        Model testModel = new ModelManager(testAddressBook, new UserPrefs());
 
         Person expectedPerson = new Person(
                 new Name("John"),
@@ -58,6 +60,6 @@ class RemarkCommandTest {
         Model expectedModel = new ModelManager(expectedAddressBook, new UserPrefs());
 
         assertCommandSuccess(remarkCommand, testModel,
-                RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS, expectedModel);
+                String.format(RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS, expectedPerson), expectedModel);
     }
 }
